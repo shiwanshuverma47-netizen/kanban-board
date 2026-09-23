@@ -7,6 +7,7 @@ const taskArea = document.querySelector('.textArea-cont')
 const dueDateInput = document.querySelector('.task-due-date')
 const allPriorityColors = document.querySelectorAll('.priority-color')
 const filterColors = document.querySelectorAll('.color')
+const clearFilterBtn = document.querySelector('#clear-filter-btn')
 
 let isModalVisible = false
 let isDeleteMode = false
@@ -59,7 +60,14 @@ filterColors.forEach(function(colorElem) {
         document.querySelectorAll('.ticket-cont').forEach(ticket => { ticket.hidden = Boolean(color && ticket.dataset.priority !== color) })
         filterColors.forEach(filter => filter.classList.remove('selected'))
         colorElem.classList.add('selected')
+        updateVisibleTaskCount()
     })
+})
+
+clearFilterBtn.addEventListener('click', function() {
+    document.querySelectorAll('.ticket-cont').forEach(ticket => { ticket.hidden = false })
+    filterColors.forEach(filter => filter.classList.remove('selected'))
+    updateVisibleTaskCount()
 })
 
 function setupTicket(ticket) {
@@ -121,6 +129,13 @@ function refreshDashboard() {
     setBar('completed-bar', completed, max); setBar('pending-bar', pending, max); setBar('overdue-bar', overdue, max); setBar('high-bar', highPriority, max)
     tickets.forEach(ticket => ticket.classList.toggle('overdue', isOverdue(ticket)))
     renderFocus(tickets)
+    updateVisibleTaskCount()
+}
+
+function updateVisibleTaskCount() {
+    const visibleCount = [...document.querySelectorAll('.main-cont .ticket-cont')].filter(ticket => !ticket.hidden).length
+    document.querySelector('#visible-task-count').textContent = `${visibleCount} ${visibleCount === 1 ? 'task' : 'tasks'}`
+    clearFilterBtn.classList.toggle('is-active', visibleCount !== document.querySelectorAll('.main-cont .ticket-cont').length)
 }
 
 function renderFocus(tickets) {
