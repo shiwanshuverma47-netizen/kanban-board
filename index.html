@@ -48,12 +48,50 @@
       </div>
     </div>
 
+    <main class="dashboard-shell">
+      <section class="dashboard-intro">
+        <div>
+          <p class="eyebrow">Daily command center</p>
+          <h2>Smart Productivity Dashboard</h2>
+          <p class="dashboard-subtitle">A clear view of what is moving, what is waiting, and what needs your attention next.</p>
+        </div>
+        <div class="today-chip"><i class="fa-regular fa-calendar"></i><span id="today-label">Today</span></div>
+      </section>
+
+      <section class="stats-grid" aria-label="Task overview">
+        <article class="stat-card stat-total"><span class="stat-icon"><i class="fa-solid fa-layer-group"></i></span><div><span class="stat-label">Total tasks</span><strong id="total-count">0</strong></div></article>
+        <article class="stat-card stat-completed"><span class="stat-icon"><i class="fa-solid fa-circle-check"></i></span><div><span class="stat-label">Completed</span><strong id="completed-count">0</strong></div></article>
+        <article class="stat-card stat-pending"><span class="stat-icon"><i class="fa-solid fa-hourglass-half"></i></span><div><span class="stat-label">Pending</span><strong id="pending-count">0</strong></div></article>
+        <article class="stat-card stat-overdue"><span class="stat-icon"><i class="fa-solid fa-triangle-exclamation"></i></span><div><span class="stat-label">Overdue</span><strong id="overdue-count">0</strong></div></article>
+        <article class="stat-card stat-high"><span class="stat-icon"><i class="fa-solid fa-bolt"></i></span><div><span class="stat-label">High priority</span><strong id="high-count">0</strong></div></article>
+      </section>
+
+      <section class="dashboard-panels">
+        <article class="progress-panel panel">
+          <div class="panel-heading"><div><p class="eyebrow">Momentum</p><h3>Completion progress</h3></div><strong id="progress-value">0%</strong></div>
+          <div class="progress-track"><span id="progress-bar"></span></div>
+          <div class="progress-meta"><span id="progress-caption">No tasks completed yet</span><span id="progress-detail">0 of 0 tasks</span></div>
+        </article>
+        <article class="chart-panel panel">
+          <div class="panel-heading"><div><p class="eyebrow">Workload</p><h3>Task health</h3></div></div>
+          <div class="bar-chart" aria-label="Task health chart"><div class="chart-bar"><span id="completed-bar"></span><small>Done</small></div><div class="chart-bar"><span id="pending-bar"></span><small>Open</small></div><div class="chart-bar"><span id="overdue-bar"></span><small>Late</small></div><div class="chart-bar"><span id="high-bar"></span><small>High</small></div></div>
+        </article>
+        <article class="focus-panel panel">
+          <div class="panel-heading"><div><p class="eyebrow">Next best action</p><h3>My Focus</h3></div><i class="fa-solid fa-crosshairs focus-mark"></i></div>
+          <div id="focus-list" class="focus-list"><p class="empty-state">Create a task to build your focus list.</p></div>
+        </article>
+      </section>
+    </main>
+
     <!-- Task Ticket -->
     <div class="main-cont">
-       <div class="ticket-cont">
+       <div class="ticket-cont" data-priority="lightpink" data-due-date="" data-status="pending">
         <div class="ticket-color" style="background-color: lightpink"></div>
         <div class="ticket-id">12345</div>
         <div class="task-area">Test task</div>
+        <div class="ticket-meta"><span class="priority-badge high-badge">High</span><span class="due-date"><i class="fa-regular fa-calendar"></i> No due date</span></div>
+        <button class="complete-btn" type="button" title="Mark task complete" aria-label="Mark task complete"><i class="fa-regular fa-circle"></i></button>
+        <button class="ticket-delete-btn" type="button" title="Delete task" aria-label="Delete task"><i class="fa-solid fa-trash"></i></button>
         <div class="ticket-lock">
           <i class="fa-solid fa-lock"></i>
         </div>
@@ -71,6 +109,9 @@
         placeholder="Enter your task description..."
       ></textarea>
 
+      <label class="due-date-field" for="task-due-date">Due date <span>Optional</span></label>
+      <input class="task-due-date" id="task-due-date" type="date" />
+
       <div class="priority-colors-container">
         <span class="priority-label">Select Priority:</span>
         <div class="priority-grid">
@@ -84,7 +125,6 @@
             <span>L</span>
           </div>
           <div class="black priority-color" title="Critical">
-          <div class="black priority-color " title="Critical">
             <span>C</span>
           </div>
         </div>
